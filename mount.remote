@@ -1,0 +1,37 @@
+#!/bin/sh
+###############################################################################
+. ${HOME}/.config/SmokeScreen/smokescreen.conf
+
+# Unmount drives
+/bin/bash ${bindir}/unmount.remote 2>&1
+sleep 10
+
+# Mount drives
+echo "$(date "+%d.%m.%Y %T") INFO: Mounting filesystems"
+
+if [ "${cloudsubdir}" = "" ]; then
+	echo "configuration option cloudsubdir must be set to a value!"
+	exit 1
+fi
+
+# Make sure all folders exist
+echo "$(date "+%d.%m.%Y %T") INFO: Creating mountpoints"
+mkdir -p "${clouddir}"
+mkdir -p "${mediadir}"
+
+#Cloud data
+echo "$(date "+%d.%m.%Y %T") INFO: Mounting ${clouddir}"
+$rclonebin mount ${rclonemountopts} ${cacheremote}: "${clouddir}" &
+if [ ! "${cloudsubdir}" = "" ]; then
+	while [ ! -d "${clouddir}/${cloudsubdir}" ]; do
+		sleep 10
+	done
+fi
+
+#Union of Cloud/Local
+echo "$(date "+%d.%m.%Y %T") INFO: Mounting ${mediadir}"
+$ufsbin ${unionmountopts} ${localdir}=RW:${clouddir}/${cloudsubdir}=RO "${mediadir}"
+
+echo "$(date "+%d.%m.%Y %T") INFO: File systems mounted"
+
+exit

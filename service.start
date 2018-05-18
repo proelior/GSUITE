@@ -1,0 +1,25 @@
+#!/bin/sh
+
+#Start Sonarr, Radarr Portainer and Deluge
+echo 	"Start all services [$(date)] ....."
+echo 	"Enter your password ....."
+sudo service sonarr start  >> /home/kurt/SmokeScreen/logs/service.up.log 2>&1
+sudo service radarr start  >> /home/kurt/SmokeScreen/logs/service.up.log 2>&1
+docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+/usr/bin/deluged -c ~/.config/deluge-anime  >> /home/kurt/SmokeScreen/logs/service.up.log 2>&1
+/usr/bin/deluged -c ~/.config/deluge-movie  >> /home/kurt/SmokeScreen/logs/service.up.log 2>&1
+/usr/bin/deluged -c ~/.config/deluge-music-audio  >> /home/kurt/SmokeScreen/logs/service.up.log 2>&1
+/usr/bin/deluged -c ~/.config/deluge-music-video  >> /home/kurt/SmokeScreen/logs/service.up.log 2>&1
+/usr/bin/deluged -c ~/.config/deluge-tv  >> /home/kurt/SmokeScreen/logs/service.up.log 2>&1
+/usr/bin/deluged -c ~/.config/deluge-uhd-movie  >> /home/kurt/SmokeScreen/logs/service.up.log 2>&1
+/usr/bin/deluged -c ~/.config/deluge-uhd-tv  >> /home/kurt/SmokeScreen/logs/service.up.log 2>&1
+#sudo /etc/init.d/transmission-daemon start
+#sudo /etc/init.d/transmission-daemon-anime start
+#sudo /etc/init.d/transmission-daemon-movies start
+#sudo /etc/init.d/transmission-daemon-movies-4k start
+#sudo /etc/init.d/transmission-daemon-tv start
+#sudo /etc/init.d/transmission-daemon-tv-4k start
+#sudo /etc/init.d/transmission-daemon-music-audio start
+#sudo /etc/init.d/transmission-daemon-music-video start
+
+echo 	"Finished [$(date)] ....."

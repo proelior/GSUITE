@@ -1,0 +1,120 @@
+﻿#!/bin/sh
+
+### SERVER INFO
+login="kurt"
+pass="emunation"
+host="195.154.164.82"
+
+### REMOTE PATHS
+remote_anime="/home/kurt/Downloads/qbittorrent/completed/anime"
+remote_emulation="/home/kurt/Downloads/qbittorrent/completed/emulation"
+remote_games="/home/kurt/Downloads/qbittorrent/completed/games"
+remote_movie="/home/kurt/Downloads/qbittorrent/completed/movie"
+remote_movie_uhd="/home/kurt/Downloads/qbittorrent/completed/movie-uhd"
+remote_music_audio="/home/kurt/Downloads/qbittorrent/completed/music-audio"
+remote_music_video="/home/kurt/Downloads/qbittorrent/completed/music-video"
+remote_software="/home/kurt/Downloads/qbittorrent/completed/software"
+remote_tv="/home/kurt/Downloads/qbittorrent/completed/tv"
+remote_tv_uhd="/home/kurt/Downloads/qbittorrent/completed/tv-uhd"
+remote_torrentfiles_anime="/home/kurt/Downloads/qbittorrent/finished-torrent-backups"
+
+### LOCAL PATHS
+local_anime="/home/kurt/Seeding-Pool/Seeding/anime"
+local_emulation="/home/kurt/Seeding-Pool/emulation"
+local_games="/home/kurt/Seeding-Pool/games"
+local_movie="/home/kurt/Seeding-Pool/movie"
+local_movie_uhd="/home/kurt/Seeding-Pool/movie-uhd"
+local_music_audio="/home/kurt/Seeding-Pool/music-audio"
+local_music_video="/home/kurt/Seeding-Pool/music-video"
+local_software="/home/kurt/Seeding-Pool/software"
+local_tv="/home/kurt/Seeding-Pool/tv"
+local_tv_uhd="/home/kurt/Seeding-Pool/tv-uhd"
+local_torrentfiles_tv="/home/kurt/qbwatch"
+
+if [ -e synctorrent.lock ]
+then
+	echo "Synctorrent is running already."
+	exit 1
+else
+	touch synctorrent.lock
+	lftp -p 4747 -u $login,$pass sftp://$host << EOF
+	set mirror:use-pget-n 5
+        echo 	Starting Anime sync .....
+	mirror -c -P5 --log=/home/kurt/SmokeScreen/logs/sync.log $remote_anime $local_anime
+	echo    Finished Anime sync.
+	sleep 5
+        echo
+	echo 	Starting Emulation sync .....
+	mirror -c -P5 --log=/home/kurt/SmokeScreen/logs/sync.log $remote_emulation $local_emulation
+	echo    Finished Emulation sync.
+	sleep 5
+        echo
+	echo 	Starting Games sync .....
+	mirror -c -P5 --log=/home/kurt/SmokeScreen/logs/sync.log $remote_games $local_games
+	echo    Finished Games sync.
+	sleep 5
+        echo
+        echo 	Starting Movie sync .....
+	mirror -c -P5 --log=/home/kurt/SmokeScreen/logs/sync.log $remote_movie $local_movie
+	echo    Finished Movie sync.
+	sleep 5
+        echo
+        echo 	Starting Movie-UHD sync .....
+	mirror -c -P5 --log=/home/kurt/SmokeScreen/logs/sync.log $remote_movie_uhd $local_movie_uhd
+	echo    Finished Movie-UHD sync.
+	sleep 5
+        echo					
+        echo 	Starting Music Audio sync .....
+	mirror -c -P5 --log=/home/kurt/SmokeScreen/logs/sync.log $remote_music_audio $local_music_audio
+	echo    Finished Music Audio sync.
+	sleep 5
+        echo					
+        echo 	Starting Music Video sync .....
+	mirror -c -P5 --log=/home/kurt/SmokeScreen/logs/sync.log $remote_music_video $local_music_video
+	echo    Finished Music Video sync.
+	sleep 5
+        echo					
+        echo 	Starting Software sync .....
+	mirror -c -P5 --log=/home/kurt/SmokeScreen/logs/sync.log $remote_software $local_software
+	echo    Finished Software sync.
+	sleep 5
+        echo
+        echo 	Starting TV sync .....
+	mirror -c -P5 --log=/home/kurt/SmokeScreen/logs/sync.log $remote_tv $local_tv
+	echo    Finished TV sync.
+	sleep 5
+        echo
+        echo 	Starting TV-UHD sync .....
+	mirror -c -P5 --log=/home/kurt/SmokeScreen/logs/sync.log $remote_tv_uhd $local_tv_uhd
+	echo    Finished TV-UHD sync.
+	sleep 5
+        echo										
+        echo 	Starting .torrent file sync .....
+	mirror -c -P5 --log=/home/kurt/SmokeScreen/logs/sync.log --Remove-source-files $remote_torrentfiles $local_torrentfiles
+	echo    Finished .torrent file sync.			
+	echo 	You can now enjoy that warm and fuzzy feeling you only get from seeding your torrents long term with qBittorrent :)
+	quit
+EOF
+
+	### Do any XBMC / Plex updates here ###
+
+	# Update XBMC libraries
+	# (see http://kodi.wiki/view/HOW-TO:Remotely_update_library)
+	#
+	# curl --data-binary '{ "jsonrpc": "2.0", "method": "VideoLibrary.Scan", "id": "mybash"}' /
+	#      -H 'content-type: application/json;' http://localhost:9191/jsonrpc
+	# curl --data-binary '{ "jsonrpc": "2.0", "method": "AudioLibrary.Scan", "id": "mybash"}' /
+	#	   -H 'content-type: application/json;' http://localhost:9191/jsonrp
+
+	# Update Plex libraries
+	# (see https://support.plex.tv/hc/en-us/articles/201242707-Plex-Media-Scanner-via-Command-Line)
+	#
+	# "C:\Program Files (x86)\Plex\Plex Media Server\Plex Media Scanner.exe" --scan --refresh --force --section 29
+	# or
+	# wget -q --delete-after "http://127.0.0.1:32400/library/sections/1/refresh" > /dev/null
+
+	rm -f synctorrent.lock
+	exit 0
+fi
+fi
+

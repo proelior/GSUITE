@@ -1,0 +1,42 @@
+#!/bin/sh
+###############################################################################
+. ${HOME}/.config/SmokeScreen/smokescreen.conf
+
+# If script is already running; abort.
+if pidof -o %PPID -x "$(basename "$0")"; then
+    echo "$(date "+%d.%m.%Y %T") INFO: $(basename "$0") already in progress. Aborting."
+    exit 3
+fi
+
+if [ "${cloudsubdir}" = "" ]; then
+	echo "configuration option cloudsubdir must be set to a value!"
+	/bin/bash ${bindir}/unmount.remote 2>&1
+	exit 1
+fi
+
+if [ ! "${1}" = "" ]; then
+	echo "$(date "+%d.%m.%Y %T") INFO: Force unmount -- parameter ${1}"
+	/bin/bash ${bindir}/unmount.remote 2>&1
+	sleep 10
+fi
+
+echo "$(date "+%d.%m.%Y %T") INFO: Checking for ${checkfile}"
+if [ -f "${checkfile}" ]; then
+	echo "$(date "+%d.%m.%Y %T") INFO: Check successful,drive mounted"
+	exit 0
+else
+	echo "$(date "+%d.%m.%Y %T") ERROR: Drive not mounted remount in progress"
+	/bin/bash ${bindir}/mount.remote 2>&1
+	sleep 10
+
+	if [ -f "${checkfile}" ]; then
+		echo "$(date "+%d.%m.%Y %T") INFO: Remount successful"
+		exit 0
+	else
+		echo "$(date "+%d.%m.%Y %T") CRITICAL: Remount failed, unmounting everything."
+		/bin/bash ${bindir}/unmount.remote 2>&1
+		sleep 30
+		exit 2
+	fi
+fi
+

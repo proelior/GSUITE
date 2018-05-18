@@ -1,0 +1,67 @@
+#!/bin/sh
+###############################################################################
+. ${HOME}/.config/SmokeScreen/smokescreen.conf
+cache_dir="${HOME}/.cache/SmokeScreen"
+
+# If script is already running; abort.
+if pidof -o %PPID -x "$(basename "$0")"; then
+    echo "$(date "+%d.%m.%Y %T") INFO: $(basename "$0") already in progress. Aborting."
+    exit 3
+fi
+
+cur_exec_date=$(echo "$(date +%s)/60"|bc)
+
+if [ ! -d "$cache_dir" ]; then
+	mkdir -p "$cache_dir"
+fi
+
+if [ ! -f "${cache_dir}/lastrun" ]; then
+	echo "$cur_exec_date" > "${cache_dir}/lastrun"
+fi
+
+prev_exec_date="$(cat "${cache_dir}/lastrun")"
+find_options="-mmin -$(echo "${cur_exec_date}" - "${prev_exec_date}" | bc)"
+
+echo "$cur_exec_date" > "${cache_dir}/lastrun"
+
+# Force a full refresh if any parameter comes in
+if [ ! "${1}" = "" ]; then
+	find_options=""
+fi
+
+echo "$(date "+%d.%m.%Y %T") INFO: Plex Scan Started"
+
+# scan movies in to Plex
+find ${plex_movie_folder} -mindepth 1 -type d ${find_options} |
+while read -r d; do
+	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_movie_category} -d "${d}"
+done
+
+# scan TV in to Plex
+find ${plex_shows_folder} -mindepth 2 -type d ${find_options} |
+while read -r d; do
+	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_shows_category} -d "${d}"
+done
+
+# scan music in to Plex
+if [ ! "${plex_music_folder}" = "" ]; then
+	find ${plex_music_folder} -mindepth 1 -type d ${find_options} |
+	while read -r d; do
+		${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_music_category} -d "${d}"
+	done
+fi
+
+echo "$(date "+%d.%m.%Y %T") INFO: Plex Scan Complete"
+echo ""
+ d; do
+	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_music_audio_category} -d "${d}"
+done
+
+# scan music-video in to Plex
+	find ${plex_music_video_folder} -mindepth 1 -type d ${find_options} |
+	while read -r d; do
+		${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_music_video_category} -d "${d}"
+	done
+
+echo "$(date "+%d.%m.%Y %T") INFO: Plex Scan Complete"
+echo ""
