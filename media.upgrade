@@ -27,7 +27,7 @@ if [ ! "${sonarr_eventtype}" = "" ]; then
 
 	# Set some variables
 	cloudpath="${cloudsubdir}/${sonarr_series_path#${mediadir}/}"
-	unionhidden="${unionhidden}/${media_shows}"
+	unionhidden="${unionhidden}/${media_tv}"
 
 	echo "$(date "+%d.%m.%Y %T") INFO: Sonarr ${sonarr_eventtype} for ${sonarr_episodefile_path}"
 
@@ -48,7 +48,7 @@ if [ ! "${sonarr_eventtype}" = "" ]; then
 	#Plex scan
 	plexpath=$(dirname "${sonarr_episodefile_path}")
 	echo "$(date "+%d.%m.%Y %T") INFO: Scanning ${plexpath} in to Plex"
-	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_shows_category} -d "${plexpath}"
+	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_tv_category} -d "${plexpath}"
 else
 	# Is a Radarr media file
 
