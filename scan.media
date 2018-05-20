@@ -31,37 +31,49 @@ fi
 
 echo "$(date "+%d.%m.%Y %T") INFO: Plex Scan Started"
 
+# scan anime in to Plex
+find ${plex_anime_folder} -mindepth 1 -type d ${find_options} |
+while read -r d; do
+	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_anime_category} -d "${d}"
+done
+
 # scan movies in to Plex
 find ${plex_movie_folder} -mindepth 1 -type d ${find_options} |
 while read -r d; do
 	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_movie_category} -d "${d}"
 done
 
-# scan TV in to Plex
-find ${plex_shows_folder} -mindepth 2 -type d ${find_options} |
+# scan movies 4k in to Plex
+find ${plex_movie_uhd_folder} -mindepth 1 -type d ${find_options} |
 while read -r d; do
-	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_shows_category} -d "${d}"
+	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_movie_uhd_category} -d "${d}"
 done
 
-# scan music in to Plex
-if [ ! "${plex_music_folder}" = "" ]; then
-	find ${plex_music_folder} -mindepth 1 -type d ${find_options} |
-	while read -r d; do
-		${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_music_category} -d "${d}"
-	done
-fi
-
-echo "$(date "+%d.%m.%Y %T") INFO: Plex Scan Complete"
-echo ""
- d; do
+# scan music audio in to Plex
+if [ ! "${plex_music_audio_folder}" = "" ]; then
+find ${plex_music_audio_folder} -mindepth 1 -type d ${find_options} |
+while read -r d; do
 	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_music_audio_category} -d "${d}"
 done
 
-# scan music-video in to Plex
-	find ${plex_music_video_folder} -mindepth 1 -type d ${find_options} |
-	while read -r d; do
-		${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_music_video_category} -d "${d}"
-	done
+# scan music video in to Plex
+find ${plex_music_video_folder} -mindepth 1 -type d ${find_options} |
+while read -r d; do
+	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_music_video_category} -d "${d}"
+done
+
+# scan tv in to Plex
+find ${plex_tv_folder} -mindepth 2 -type d ${find_options} |
+while read -r d; do
+	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_tv_category} -d "${d}"
+done
+
+# scan tv 4k in to Plex
+find ${plex_tv_uhd_folder} -mindepth 2 -type d ${find_options} |
+while read -r d; do
+	${PLEX_MEDIA_SERVER_HOME}/Plex\ Media\ Scanner -s -r -c ${plex_tv_uhd_category} -d "${d}"
+done
+fi
 
 echo "$(date "+%d.%m.%Y %T") INFO: Plex Scan Complete"
 echo ""
