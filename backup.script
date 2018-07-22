@@ -3,24 +3,24 @@
 
 now=$(date +"%m_%d_%Y")
 
-cd /home/kurt/SmokeScreen/localmedia/server-backup 
+cd /home/$USER/Cloud-Accounts/GSUITE/localmedia/Server-Backup 
 mkdir /old/$now &&
 mv * /old/$now
-cp -R /home/kurt/.config/deluge-anime /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/deluge-movie /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/deluge-music-audio /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/deluge-music-video /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/deluge-tv /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/deluge-uhd-movie /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/deluge-uhd-tv /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/Jackett /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/Lidarr /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/NzbDrone /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/NzbDrone-anime /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/NzbDrone-uhd /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/Radarr /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/rclone /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/SmokeScreen /home/kurt/SmokeScreen/localmedia/server-backup
-cp -R /home/kurt/.config/ /home/kurt/SmokeScreen/localmedia/server-backup
+cp -R /home/$USER/.config/deluge-anime /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/deluge-movie /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/deluge-music-audio /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/deluge-music-video /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/deluge-tv /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/deluge-uhd-movie /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/deluge-uhd-tv /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/Jackett /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/Lidarr /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/NzbDrone /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/NzbDrone-anime /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/NzbDrone-uhd /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/Radarr /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/rclone /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/SmokeScreen /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
+cp -R /home/$USER/.config/ /home/$USER/Cloud-Accounts/GSUITE/localmedia/server-backup
 
 exit 0
