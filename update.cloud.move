@@ -1,6 +1,6 @@
 #!/bin/sh
 ###############################################################################
-. ${HOME}/.config/SmokeScreen/smokescreen.conf
+. ${HOME}/.config/gsuite/gsuite.conf
 
 # If script is already running; abort.
 if pidof -o %PPID -x "$(basename "$0")"; then
