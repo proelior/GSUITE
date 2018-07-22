@@ -1,9 +1,9 @@
 ﻿#!/bin/sh
 
 ### SERVER INFO
-login="kurt"
-pass="emunation"
-host="195.154.164.82"
+login="USERNAME"
+pass="PASSWORD"
+host="SERVER ADDRESS"
 
 ### REMOTE PATHS
 remote_anime="/home/kurt/Downloads/qbittorrent/completed/anime"
