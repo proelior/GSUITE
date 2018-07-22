@@ -1,6 +1,6 @@
 #!/bin/sh
 ###############################################################################
-. ${HOME}/.config/SmokeScreen/smokescreen.conf
+. ${HOME}/.config/gsuite/gsuite.conf
 
 # Unmount drives
 /bin/bash ${bindir}/unmount.remote 2>&1
