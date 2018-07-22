@@ -1,6 +1,6 @@
 #!/bin/sh
 ###############################################################################
-. ${HOME}/.config/SmokeScreen/smokescreen.conf
+. ${HOME}/.config/gsuite/gsuite.conf
 
 echo "$(date "+%d.%m.%Y %T") INFO: Unmounting filesystems."
 
