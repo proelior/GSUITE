@@ -1,7 +1,7 @@
 #!/bin/sh
 ###############################################################################
-. ${HOME}/.config/SmokeScreen/smokescreen.conf
-cache_dir="${HOME}/.cache/SmokeScreen"
+. ${HOME}/.config/gsuite/gsuite.conf
+cache_dir="${HOME}/.cache/GSUITE"
 
 # If script is already running; abort.
 if pidof -o %PPID -x "$(basename "$0")"; then
