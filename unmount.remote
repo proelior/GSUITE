@@ -14,6 +14,6 @@ if mountpoint -q $clouddir; then
 	fusermount -uz $clouddir 2>&1
 fi
 
-echo "$(date "+%d.%m.%Y %T") INFO: File Systems Unmounted!"
+echo "$(date "+%d.%m.%Y %T") INFO: All file Systems Unmounted!"
 
 exit
