@@ -10,7 +10,7 @@
 # This script deletes that metadata file and then deletes the actual file
 # from your cloud storage.
 ###############################################################################
-. "${HOME}/.config/gsuite/gsuite.conf"
+. "${HOME}/.config/GSUITEv1/gsuitev1.conf"
 
 logfile="${HOME}/logs/$(basename $0).log"
 exec >> $logfile 2>&1
