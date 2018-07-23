@@ -1,6 +1,6 @@
 #!/bin/sh
 ###############################################################################
-. ${HOME}/.config/gsuite/gsuite.conf
+. ${HOME}/.config/GSUITEv1/gsuitev1.conf
 
 echo "$(date "+%d.%m.%Y %T") INFO: Unmounting filesystems."
 
