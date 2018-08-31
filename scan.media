@@ -1,6 +1,6 @@
 #!/bin/sh
 ###############################################################################
-. ${HOME}/.config/GSUITEv1/gsuitev1.conf
+. ${HOME}/.config/GSUITE/gsuite.conf
 cache_dir="${HOME}/.cache/GSUITE"
 
 # If script is already running; abort.
