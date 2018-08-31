@@ -1,6 +1,6 @@
 #!/bin/sh
 ###############################################################################
-. ${HOME}/.config/GSUITEv1/gsuitev1.conf
+. ${HOME}/.config/GSUITE/gsuite.conf
 
 # Unmount drives
 /bin/bash ${bindir}/unmount.remote 2>&1
